@@ -21,7 +21,7 @@
 
     <EditText
         android:id="@+id/etPassword"
-        android:layout_width="237dp"
+        android:layout_width="235dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:ems="10"
@@ -32,13 +32,35 @@
 
     <Button
         android:id="@+id/btLogin"
-        android:layout_width="wrap_content"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="235dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="152dp"
+        android:background="@android:color/holo_blue_light"
         android:text="Login"
         tools:layout_editor_absoluteX="148dp"
         tools:layout_editor_absoluteY="257dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        app:srcCompat="@drawable/nav_logo_whiteout" />
+
+    <Button
+        android:id="@+id/btnSignUp"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="235dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="88dp"
+        android:background="@android:color/holo_green_light"
+        android:text="Sign Up" />
 
 </RelativeLayout>
