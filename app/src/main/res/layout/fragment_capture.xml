@@ -1,14 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frame_capture"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Capture">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <ImageView
+        android:id="@+id/ivPhotoUpload"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_above="@+id/etDescription"
+        android:layout_centerHorizontal="true"
+        android:adjustViewBounds="false"
+        android:cropToPadding="false"
+        app:srcCompat="@drawable/camera_shadow_fill" />
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/etDescription"
+        android:layout_width="247dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/ibGallery"
+        android:layout_marginBottom="104dp"
+        android:layout_marginStart="-47dp"
+        android:ems="10"
+        android:hint="Enter a description"
+        android:inputType="textMultiLine" />
+
+    <ImageButton
+        android:id="@+id/ibGallery"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@+id/ibCamera"
+        android:layout_toEndOf="@+id/ibCamera"
+        android:background="@android:color/white"
+        android:scaleType="fitCenter"
+        android:src="@android:drawable/ic_menu_gallery" />
+
+    <ImageButton
+        android:id="@+id/ibCamera"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_above="@+id/ivPhotoUpload"
+        android:layout_alignStart="@+id/ivPhotoUpload"
+        android:background="@android:color/white"
+        android:scaleType="fitCenter"
+        android:src="@android:drawable/ic_menu_camera" />
+
+    <Button
+        android:id="@+id/btnShare"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/etDescription"
+        android:layout_marginTop="-104dp"
+        android:background="@android:color/white"
+        android:text="Share"
+        android:textColor="@android:color/holo_blue_light" />
+
+
+</RelativeLayout>

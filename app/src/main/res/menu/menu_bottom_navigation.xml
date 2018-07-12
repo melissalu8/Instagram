@@ -1,4 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item
+        android:id="@+id/aTimeline"
+        android:enabled="true"
+        android:icon="@drawable/ic_instagram_home"
+        android:visible="true"
+        android:title="@string/title_activity_home"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/aCreate"
+        android:enabled="true"
+        android:title="create"
+        android:icon="@drawable/ic_instagram_new_post" />
+    <item
+        android:id="@+id/aProfile"
+        android:enabled="true"
+        android:icon="@drawable/ic_instagram_profile"
+        android:title="profile"
+        app:showAsAction="ifRoom" />
 </menu>
