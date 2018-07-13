@@ -10,6 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -17,6 +20,8 @@ import com.parse.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import codepath.com.instagram.Model.Post;
 
 // TODO : Add implements fragment Call backs ex. ProfileCallBacks
@@ -28,6 +33,13 @@ public class Timeline extends Fragment {
     InstaAdapter instaAdapter;
     ArrayList<Post> posts;
     RecyclerView rvInstaTimeline;
+    ProgressBar pb;
+
+    @BindView(R.id.ibLikes) ImageButton ibLikes;
+    @BindView(R.id.ibComment) ImageButton ibComment;
+    @BindView(R.id.tvLikes) TextView tvLikes;
+    @BindView(R.id.tvComment) TextView tvComment;
+
 
     public Timeline() {
         // Required empty public constructor
@@ -45,6 +57,9 @@ public class Timeline extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ButterKnife.bind(getActivity());
+
+        pb = (ProgressBar) getActivity().findViewById(R.id.pbLoading);
 
         swipeContainer = (SwipeRefreshLayout) getActivity().findViewById(R.id.swipeContainer);
         // Setup refresh listener which triggers new data loading
@@ -86,6 +101,7 @@ public class Timeline extends Fragment {
                 instaAdapter.notifyDataSetChanged();
                 if (e == null) {
                     for (int i = 0; i < objects.size(); ++i) {
+                        pb.setVisibility(ProgressBar.VISIBLE);
                         Post post = objects.get(i);
                         posts.add(0, post);
                         // construct the adapter from this datasource
@@ -96,6 +112,7 @@ public class Timeline extends Fragment {
                                 + "\nusername = " + objects.get(i).getUser().getUsername()
                         );
                     }
+                    pb.setVisibility(ProgressBar.INVISIBLE);
                 } else {
                     e.printStackTrace();
                 }

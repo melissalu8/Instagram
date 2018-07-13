@@ -38,8 +38,9 @@ public class MainActivity extends AppCompatActivity {
 
         usernameInput = findViewById(R.id.etUsername);
         passwordInput = findViewById(R.id.etPassword);
-        loginBtn = findViewById(R.id.btLogin);
-        signupBtn = findViewById(R.id.btnSignUp);
+        loginBtn = findViewById(R.id.btnLogin);
+        signupBtn = findViewById(R.id.btnSignup);
+
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,12 +82,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ParseUser currentUser = ParseUser.getCurrentUser();
-        if (currentUser != null) {
-            // do stuff with the user
-        } else {
-            // show the signup or login screen
-        }
     }
 
     private void signup(final String username, String password) {

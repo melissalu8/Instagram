@@ -161,7 +161,6 @@ public class Capture extends Fragment {
                 // RESIZE BITMAP, see section below
                 Bitmap resizedBitmap = Bitmap.createScaledBitmap(takenImage, SOME_WIDTH, SOME_HEIGHT, false);
                 // Load the taken image into a preview
-                // TODO: FIX IDs
                 ImageView ivPhotoUpload = (ImageView) getView().findViewById(R.id.ivPhotoUpload);
                 ivPhotoUpload.setImageBitmap(resizedBitmap);
             } else { // Result was a failure

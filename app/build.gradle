@@ -27,6 +27,10 @@ dependencies {
     // dependencies for Refresh
     implementation 'com.android.support:support-v4:28.0.0-alpha3'
 
+    // parceler
+    implementation 'org.parceler:parceler-api:1.1.6'
+    annotationProcessor 'org.parceler:parceler:1.1.6'
+
     // dependencies for parse
     implementation 'com.parse.bolts:bolts-android:1.4.0'
     implementation "com.parse:parse-android:1.17.3"
@@ -34,6 +38,10 @@ dependencies {
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.7.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
+
+    // Butterknife
+    implementation 'com.jakewharton:butterknife:8.4.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
 
     implementation 'com.android.support:design:28.0.0-alpha3'
     implementation 'com.android.support:support-v4:28.0.0-alpha3'

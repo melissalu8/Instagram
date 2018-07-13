@@ -61,5 +61,4 @@
         android:text="Share"
         android:textColor="@android:color/holo_blue_light" />
 
-
 </RelativeLayout>
