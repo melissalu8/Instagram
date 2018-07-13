@@ -10,17 +10,29 @@
         android:id="@+id/ivProfilePic"
         android:layout_width="74dp"
         android:layout_height="70dp"
+        android:layout_above="@+id/tvBiography"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="-135dp"
+        android:background="@color/transparent"
         android:src="?attr/colorBackgroundFloating" />
 
     <ImageButton
         android:id="@+id/ibAddProfile"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="40dp"
-        android:background="?attr/colorBackgroundFloating"
+        android:layout_alignBottom="@+id/ivProfilePic"
+        android:background="@color/transparent"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_instagram_new_post" />
+
+    <TextView
+        android:id="@+id/tvBiography"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="135dp"
+        android:text="Melissa Lu" />
 
     <Button
         android:id="@+id/btnLogout"
@@ -29,15 +41,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_gravity="right"
+        android:layout_marginEnd="109dp"
+        android:layout_marginTop="96dp"
         android:text="Logout" />
-
-    <TextView
-        android:id="@+id/tvBiography"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/ivProfilePic"
-        android:text="Melissa Lu" />
 
 </RelativeLayout>

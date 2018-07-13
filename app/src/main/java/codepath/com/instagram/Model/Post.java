@@ -11,7 +11,10 @@ public class Post extends ParseObject {
     private static final  String KEY_DESCRIPTION = "description";
     private static final  String KEY_IMAGE = "image";
     private static final String KEY_USER = "user";
-    private static final String KEY_LIKES = "likes"
+    private static final String KEY_LIKES = "likes";
+    private static final String KEY_COMMENT_COUNT = "commentCount";
+    public boolean favorited = false;
+    public boolean retweeted = false;
 
     public String getDescription() {
         return getString(KEY_DESCRIPTION);
@@ -42,6 +45,10 @@ public class Post extends ParseObject {
     public Number getLikes () {return getInt(KEY_LIKES);}
 
     public void setLikes (Number likes) { put(KEY_LIKES, likes); }
+
+    public Number getCommentCount () {return getInt(KEY_COMMENT_COUNT);}
+
+    public void setCommentCount (Number commentCount) { put(KEY_COMMENT_COUNT, commentCount); }
 
     public static class Query extends ParseQuery<Post> {
         public Query() {

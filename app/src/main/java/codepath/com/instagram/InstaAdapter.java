@@ -11,6 +11,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+
 import org.parceler.Parcels;
 
 import java.util.List;
@@ -54,6 +56,9 @@ public class InstaAdapter extends RecyclerView.Adapter<InstaAdapter.ViewHolder> 
         holder.tvCaption.setText(post.getDescription());
         holder.tvUserCaption.setText(post.getUser().getUsername().toString());
         holder.tvTimeStamp.setText(post.getCreatedAt().toString());
+
+        holder.tvLikes.setText(post.getLikes().toString());
+        holder.tvComment.setText(post.getCommentCount().toString());
 //        holder.tvBody.setText(tweet.body);
 //        holder.tvID.setText(tweet.user.screenName);
 //        holder.tvTimeStamp.setText(tweet.createdAt);
@@ -64,7 +69,14 @@ public class InstaAdapter extends RecyclerView.Adapter<InstaAdapter.ViewHolder> 
         // TODO: profile image using Glide
         GlideApp.with(context)
                 .load(post.getImage().getUrl())
+                .centerCrop()
                 .into(holder.ivPhoto);
+
+        GlideApp.with(context)
+                .load(post.getUser().getParseFile("profilePicture").getUrl())
+                .centerCrop()
+                .transform(new CircleCrop())
+                .into(holder.ivProfileImage);
     }
 
     @Override
@@ -86,11 +98,15 @@ public class InstaAdapter extends RecyclerView.Adapter<InstaAdapter.ViewHolder> 
         public TextView tvUserCaption;
         public TextView tvCaption;
 
+        // Likes and Comments
+        boolean likes;
+        boolean comments;
+
         public ViewHolder(View itemView) {
             super(itemView);
 
             // TODO: Description setOnClickListener
-           itemView.setOnClickListener(this);
+            itemView.setOnClickListener(this);
             // perform findViewById lookups
 
             ivProfileImage = (ImageView) itemView.findViewById(R.id.ivProfileImage);
@@ -107,21 +123,8 @@ public class InstaAdapter extends RecyclerView.Adapter<InstaAdapter.ViewHolder> 
             tvUserCaption = (TextView) itemView.findViewById(R.id.tvUserCaption);
             tvCaption = (TextView) itemView.findViewById(R.id.tvCaption);
 
-            // TODO: setOnClickListener for ibLikes, ibComment
-
-//            ibComment.setOnClickListener(this);
-//            ibRetweet.setOnClickListener(this);
-//            ibHeart.setOnClickListener(this);
-
-
-            // TODO: grab onClick idea from Twitter for likes and comments
-//        @Override
-//        public void onClick(View view) {
-//            // gets item position
-//            int position = getAdapterPosition();
-//            // make sure the position is valid, i.e. actually exists in the view
-//            if (position != RecyclerView.NO_POSITION) {
-
+            ibLikes.setOnClickListener(this);
+            ibComment.setOnClickListener(this);
         }
 
         @Override
@@ -130,14 +133,53 @@ public class InstaAdapter extends RecyclerView.Adapter<InstaAdapter.ViewHolder> 
             int position = getAdapterPosition();
             // make sure the position is valid, i.e. actually exists in the view
             if (position != RecyclerView.NO_POSITION) {
-                // get the movie at the position, this won't work if the class is static
-                Post post = mPosts.get(position);
-                // create intent for the new activity
-                Intent intent = new Intent(context, DetailActivity.class);
-                // serialize the movie using parceler, use its short name as a key
-                intent.putExtra(Post.class.getSimpleName(), Parcels.wrap(post));
-                // show the activity
-                context.startActivity(intent);
+                // FAVORITE
+                if (view.getId() == R.id.ibLikes) {
+                    // get the post at the position, this won't work if the class is static
+                    Post post = mPosts.get(position);
+                    // TODO: Unfavorite
+                    //favorited = post.isFavorited();
+//                    if (favorited == false) {
+                    int likesCount = (int) post.getLikes();
+                    likesCount++;
+                    tvLikes.setText(likesCount + "");
+                    post.setLikes(likesCount);
+//                                    favorited = tweet.isFavorited();
+                    ibLikes.setImageResource(R.drawable.ic_heart_filled_24dp);
+                }
+
+                else if (view.getId() == R.id.ibComment) {
+                    // get the post at the position, this won't work if the class is static
+                    Post post = mPosts.get(position);
+                    //favorited = post.isFavorited();
+//                    if (favorited == false) {
+                    int commentCount = (int) post.getCommentCount();
+                    commentCount++;
+                    tvComment.setText(commentCount + "");
+                    post.setCommentCount(commentCount);
+//                                    favorited = tweet.isFavorited();
+                    ibComment.setImageResource(R.drawable.ic_chat_bubble_filled_24dp);
+
+                    // luanch intent to detail activity
+                    Intent intent = new Intent(context, DetailActivity.class);
+                    // serialize the movie using parceler, use its short name as a key
+                    intent.putExtra(Post.class.getSimpleName(), Parcels.wrap(post));
+                    // show the activity
+                    context.startActivity(intent);
+                }
+
+//                    }
+
+                else {
+                    // get the post at the position, this won't work if the class is static
+                    Post post = mPosts.get(position);
+                    // create intent for the new activity
+                    Intent intent = new Intent(context, DetailActivity.class);
+                    // serialize the movie using parceler, use its short name as a key
+                    intent.putExtra(Post.class.getSimpleName(), Parcels.wrap(post));
+                    // show the activity
+                    context.startActivity(intent);
+                }
             }
         }
     }

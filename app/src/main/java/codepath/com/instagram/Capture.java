@@ -40,8 +40,8 @@ public class Capture extends Fragment {
     // Launching the camera variables
     public final String APP_TAG = "Instagram";
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
-    public final int SOME_WIDTH = 100;
-    public final int SOME_HEIGHT = 100;
+    public final int SOME_WIDTH = 30;
+    public final int SOME_HEIGHT = 30;
     public String photoFileName = "photo.jpg";
     File photoFile;
 
@@ -173,5 +173,4 @@ public class Capture extends Fragment {
     public void onDetach() {
         super.onDetach();
     }
-
 }

@@ -137,7 +137,6 @@ public class Timeline extends Fragment {
         });
     }
 
-
     @Override
     public void onDetach() {
         super.onDetach();
