@@ -36,6 +36,7 @@ public class Capture extends Fragment {
     private Button btnShare;
     private ImageButton ibCamera;
     private ImageButton ibGallery;
+    private EditText etLocation;
 
     // Launching the camera variables
     public final String APP_TAG = "Instagram";
@@ -66,19 +67,21 @@ public class Capture extends Fragment {
         btnShare = view.findViewById(R.id.btnShare);
         ibCamera = view.findViewById(R.id.ibCamera);
         ibGallery = view.findViewById(R.id.ibGallery);
+        etLocation = view.findViewById(R.id.etLocation);
 
         btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 final String description = descriptionInput.getText().toString();
                 final ParseUser user = ParseUser.getCurrentUser();
+                final String location = etLocation.getText().toString();
 
                 final File file = getPhotoFileUri(photoFileName);
                 final ParseFile parseFile = new ParseFile(file);
                 parseFile.saveInBackground(new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
-                        createPost(description, parseFile, user);
+                        createPost(description, parseFile, user, location);
                     }
                 });
             }
@@ -94,12 +97,13 @@ public class Capture extends Fragment {
         return view;
     }
 
-    private void createPost(String description, ParseFile imageFile, ParseUser user) {
+    private void createPost(String description, ParseFile imageFile, ParseUser user, String location) {
         // TODO - create and save post
         final Post newPost = new Post();
         newPost.setDescription(description);
         newPost.setImage(imageFile);
         newPost.setUser(user);
+        newPost.setLocation(location);
 
         newPost.saveInBackground(new SaveCallback() {
             @Override

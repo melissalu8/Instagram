@@ -80,7 +80,7 @@ public class Timeline extends Fragment {
         rvInstaTimeline = (RecyclerView) getActivity().findViewById(R.id.rvInstaTimeline);
 
         posts = new ArrayList<Post>();
-        instaAdapter = new InstaAdapter(posts);
+        instaAdapter = new InstaAdapter(posts, (HomeActivity) getActivity());
         // RecyclerView setup (layout manager, use adapter)
         rvInstaTimeline.setLayoutManager(new LinearLayoutManager(getActivity()));
         // set the adapter

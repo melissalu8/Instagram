@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.parse.ParseUser;
 
 import org.parceler.Parcels;
 
@@ -20,15 +21,18 @@ import java.util.List;
 import codepath.com.instagram.Model.GlideApp;
 import codepath.com.instagram.Model.Post;
 
+// Comments Array?
+// Communicating
 public class InstaAdapter extends RecyclerView.Adapter<InstaAdapter.ViewHolder> {
 
     private List<Post> mPosts;
+    private HomeActivity homeActivity;
     Context context;
 
     // pass in the Tweets array in the constructor
-    public InstaAdapter(List<Post> posts) {
+    public InstaAdapter(List<Post> posts, HomeActivity homeActivity) {
         mPosts = posts;
-
+        this.homeActivity = homeActivity;
     }
 
     @NonNull
@@ -59,12 +63,7 @@ public class InstaAdapter extends RecyclerView.Adapter<InstaAdapter.ViewHolder> 
 
         holder.tvLikes.setText(post.getLikes().toString());
         holder.tvComment.setText(post.getCommentCount().toString());
-//        holder.tvBody.setText(tweet.body);
-//        holder.tvID.setText(tweet.user.screenName);
-//        holder.tvTimeStamp.setText(tweet.createdAt);
-//        holder.tvFavCount.setText(tweet.favorite_count+"");
-//        holder.tvRetweetCount.setText(tweet.retweet_count+"");
-//        holder.tvComCount.setText(tweet.reply_count+"");
+        holder.tvLocation.setText(post.getLocation());
 
         // TODO: profile image using Glide
         GlideApp.with(context)
@@ -125,6 +124,7 @@ public class InstaAdapter extends RecyclerView.Adapter<InstaAdapter.ViewHolder> 
 
             ibLikes.setOnClickListener(this);
             ibComment.setOnClickListener(this);
+            ivProfileImage.setOnClickListener(this);
         }
 
         @Override
@@ -168,6 +168,16 @@ public class InstaAdapter extends RecyclerView.Adapter<InstaAdapter.ViewHolder> 
                     context.startActivity(intent);
                 }
 
+                else if (view.getId() == R.id.ivProfileImage){
+                    // ParseUser user
+                    // Fragment transaction
+                    // new bundle
+
+                    // get the post at the position, this won't work if the class is static
+                    Post post = mPosts.get(position);
+                    ParseUser user = post.getUser();
+                    homeActivity.transactionProfile(user);
+                }
 //                    }
 
                 else {
