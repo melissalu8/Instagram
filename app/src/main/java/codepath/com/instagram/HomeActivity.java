@@ -49,6 +49,7 @@ public class HomeActivity extends AppCompatActivity {
                             case R.id.aProfile:
                                 FragmentTransaction toProfile = fragmentManager.beginTransaction();
                                 toProfile.replace(R.id.your_placeholder, profile).commit();
+
                                 return true;
                         }
                     }
