@@ -8,24 +8,27 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import com.parse.ParseUser;
+
 // parse-dashboard --appId mlinstagram --masterKey masterkey --serverURL http://melissalu8-instagram.herokuapp.com/parse
 
 public class HomeActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
+    FragmentManager fragmentManager;
+    Profile profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        final FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager = getSupportFragmentManager();
 
         // define your fragments here
-        // TODO: Add Timeline Fragment
         final Capture capture = new Capture();
         final Timeline timeline = new Timeline();
-        final Profile profile = new Profile();
+        profile = new Profile();
 
         FragmentTransaction toTimeline = fragmentManager.beginTransaction();
         toTimeline.replace(R.id.your_placeholder, timeline).commit();
@@ -47,14 +50,24 @@ public class HomeActivity extends AppCompatActivity {
                                 toTimeline.replace(R.id.your_placeholder, timeline).commit();
                                 return true;
                             case R.id.aProfile:
-                                FragmentTransaction toProfile = fragmentManager.beginTransaction();
-                                toProfile.replace(R.id.your_placeholder, profile).commit();
+//                                FragmentTransaction toProfile = fragmentManager.beginTransaction();
+//                                toProfile.replace(R.id.your_placeholder, profile).commit();
+
+                                transactionProfile(ParseUser.getCurrentUser());
+//                                FragmentTransaction toProfile = fragmentManager.beginTransaction();
+//                                toProfile.replace(R.id.your_placeholder, profile).commit();
 
                                 return true;
                         }
                     }
                 });
-
     }
+
+    public void transactionProfile(ParseUser parseUser) {
+        profile.setParseUser(parseUser);
+        FragmentTransaction toProfile = fragmentManager.beginTransaction();
+        toProfile.replace(R.id.your_placeholder, profile).commit();
+    }
+
 
 }

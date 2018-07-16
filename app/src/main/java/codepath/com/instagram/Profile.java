@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
@@ -37,6 +38,7 @@ public class Profile extends Fragment {
     private Button logoutBtn;
     ImageButton ibAddProfile;
     ImageView ivProfilePicture;
+    TextView tvBiography;
 
     public final String APP_TAG = "Instagram";
     public static final int RESULT_LOAD_IMAGE = 0;
@@ -47,6 +49,7 @@ public class Profile extends Fragment {
 
     Bitmap resizedBitmap;
     ImageView ivPhotoUpload;
+    private ParseUser parseUser;
 
     public Profile() {
         // Required empty public constructor
@@ -65,6 +68,9 @@ public class Profile extends Fragment {
         ibAddProfile = getActivity().findViewById(R.id.ibAddProfile);
 
         ivProfilePicture = getActivity().findViewById(R.id.ivProfilePic);
+        tvBiography = getActivity().findViewById(R.id.tvBiography);
+
+        populateProfilePicture(this.getParseUser());
 
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,7 +103,6 @@ public class Profile extends Fragment {
             }
         });
 
-        populateProfilePicture();
         super.onViewCreated(view, savedInstanceState);
     }
 
@@ -129,7 +134,7 @@ public class Profile extends Fragment {
                 resizedBitmap = Bitmap.createScaledBitmap(takenImage, SOME_WIDTH, SOME_HEIGHT, false);
                 // Load the taken image into a preview
                 ivPhotoUpload = (ImageView) getView().findViewById(R.id.ivProfilePic);
-                populateProfilePicture();
+//                populateProfilePicture();
                 ivPhotoUpload.setImageBitmap(resizedBitmap);
 
                 final File file = getPhotoFileUri(photoFileName);
@@ -159,7 +164,29 @@ public class Profile extends Fragment {
         }
     }
 
-    private void populateProfilePicture() {
+    private void populateProfilePicture(ParseUser parseUser) {
+
+            final ParseFile profilePicture = parseUser.getParseFile("profilePicture");
+            parseUser.saveInBackground(new SaveCallback() {
+                @Override
+                public void done(ParseException e) {
+                    if (e == null) {
+                        GlideApp.with(getActivity())
+                                .load(profilePicture.getUrl())
+                                .centerCrop()
+                                .transform(new CircleCrop())
+                                .into(ivProfilePicture);
+                    } else {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+            tvBiography.setText(parseUser.getUsername().toString());
+    }
+
+    private void populateSelf() {
+
         ParseUser currentUser = ParseUser.getCurrentUser();
 
         final ParseFile profilePicture = currentUser.getParseFile("profilePicture");
@@ -177,6 +204,16 @@ public class Profile extends Fragment {
                 }
             }
         });
+
+        tvBiography.setText(currentUser.getUsername().toString());
+    }
+
+    public ParseUser getParseUser() {
+        return parseUser;
+    }
+
+    public void setParseUser(ParseUser parseUser) {
+        this.parseUser = parseUser;
     }
 
     @Override

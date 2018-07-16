@@ -13,6 +13,8 @@ public class Post extends ParseObject {
     private static final String KEY_USER = "user";
     private static final String KEY_LIKES = "likes";
     private static final String KEY_COMMENT_COUNT = "commentCount";
+    public static final String KEY_LOCATION = "location";
+
     public boolean favorited = false;
     public boolean retweeted = false;
 
@@ -49,6 +51,10 @@ public class Post extends ParseObject {
     public Number getCommentCount () {return getInt(KEY_COMMENT_COUNT);}
 
     public void setCommentCount (Number commentCount) { put(KEY_COMMENT_COUNT, commentCount); }
+
+    public String getLocation () { return getString(KEY_LOCATION);}
+
+    public void setLocation(String location) { put(KEY_LOCATION, location);}
 
     public static class Query extends ParseQuery<Post> {
         public Query() {
