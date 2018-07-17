@@ -69,23 +69,23 @@ public class Capture extends Fragment {
         ibGallery = view.findViewById(R.id.ibGallery);
         etLocation = view.findViewById(R.id.etLocation);
 
-        btnShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final String description = descriptionInput.getText().toString();
-                final ParseUser user = ParseUser.getCurrentUser();
-//                final String location = etLocation.getText().toString();
-
-                final File file = getPhotoFileUri(photoFileName);
-                final ParseFile parseFile = new ParseFile(file);
-                parseFile.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        createPost(description, parseFile, user);
-                    }
-                });
-            }
-        });
+//        btnShare.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                final String description = descriptionInput.getText().toString();
+//                final ParseUser user = ParseUser.getCurrentUser();
+////                final String location = etLocation.getText().toString();
+//
+//                final File file = getPhotoFileUri(photoFileName);
+//                final ParseFile parseFile = new ParseFile(file);
+//                parseFile.saveInBackground(new SaveCallback() {
+//                    @Override
+//                    public void done(ParseException e) {
+//                        createPost(description, parseFile, user);
+//                    }
+//                });
+//            }
+//        });
 
         ibCamera.setOnClickListener(new View.OnClickListener() {
             @Override
